@@ -12,5 +12,4 @@
     * `npm install`
 5. Start the app
     * `npm start`
-6. Open a browser to `http://localhost:3000/`
-7. Win
+6. Win
