@@ -1,6 +1,6 @@
 {
   "name": "bitbox-scaffold-node",
-  "version": "1.6.0",
+  "version": "1.6.3",
   "description": "Basic command line node app w/ BITBOX bindings",
   "author": "Gabriel Cardona @ Bitcoin.com",
   "license": "MIT",
@@ -18,6 +18,6 @@
   },
   "homepage": "https://github.com/Bitcoin-com/bitbox-scaffold-node#readme",
   "devDependencies": {
-    "bitbox-cli": "1.6.0"
+    "bitbox-cli": "1.6.3"
   }
 }
