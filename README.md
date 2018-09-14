@@ -13,3 +13,5 @@
 5. Start the app
     * `npm start`
 6. Win
+
+[![Build Status](https://travis-ci.org/Bitcoin-com/bitbox-scaffold-node.svg?branch=master)](https://travis-ci.org/Bitcoin-com/bitbox-scaffold-node)
