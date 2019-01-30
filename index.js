@@ -46,20 +46,20 @@ let hex;
 
 BITBOX.Address.utxo(cashAddress).then(
   result => {
-    if (!result[0]) {
+    if (!result.utxos[0]) {
       return;
     }
 
     // instance of transaction builder
     let transactionBuilder = new BITBOX.TransactionBuilder("bitcoincash");
     // original amount of satoshis in vin
-    let originalAmount = result[0].satoshis;
+    let originalAmount = result.utxos[0].satoshis;
 
     // index of vout
-    let vout = result[0].vout;
+    let vout = result.utxos[0].vout;
 
     // txid of vout
-    let txid = result[0].txid;
+    let txid = result.utxos[0].txid;
 
     // add input with txid and index of vout
     transactionBuilder.addInput(txid, vout);
