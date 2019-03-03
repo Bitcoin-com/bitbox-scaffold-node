@@ -23,7 +23,7 @@ console.log(`256 bit ${lang} BIP39 Mnemonic: `, mnemonic);
 let rootSeed = BITBOX.Mnemonic.toSeed(mnemonic);
 
 // master HDNode
-let masterHDNode = BITBOX.HDNode.fromSeed(rootSeed);
+let masterHDNode = BITBOX.HDNode.fromSeed(rootSeed, "mainnet");
 
 // HDNode of BIP44 account
 let account = BITBOX.HDNode.derivePath(masterHDNode, "m/44'/145'/0'");
