@@ -1,6 +1,6 @@
 {
   "name": "bitbox-scaffold-node",
-  "version": "4.0.0",
+  "version": "5.0.0",
   "description": "Basic command line node app w/ BITBOX bindings",
   "author": "Gabriel Cardona <gabriel@bitcoin.com>",
   "engines": {
@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/Bitcoin-com/bitbox-scaffold-node#readme",
   "devDependencies": {
-    "bitbox-sdk": "4.0.0",
+    "bitbox-sdk": "^5.0.0",
     "coveralls": "^3.0.2",
     "eslint": "^5.5.0",
     "eslint-config-prettier": "^3.0.1",
@@ -32,8 +32,8 @@
     "eslint-plugin-promise": "^2.0.1",
     "eslint-plugin-standard": "^4.0.0",
     "node-mocks-http": "^1.7.0",
-    "supertest": "^2.0.0",
-    "prettier": "^1.14.2"
+    "prettier": "^1.14.2",
+    "supertest": "^2.0.0"
   },
   "dependencies": {
     "mocha": "^5.2.0"

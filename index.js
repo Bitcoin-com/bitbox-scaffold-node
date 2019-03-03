@@ -1,4 +1,4 @@
-let BITBOXSDK = require("bitbox-sdk/lib/bitbox-sdk").default;
+let BITBOXSDK = require("bitbox-sdk");
 let BITBOX = new BITBOXSDK();
 
 let langs = [
