@@ -1,5 +1,5 @@
-let BITBOXSDK = require("bitbox-sdk");
-let BITBOX = new BITBOXSDK();
+let BITBOX = require("bitbox-sdk").BITBOX;
+let bitbox = new BITBOX();
 
 let langs = [
   "english",
@@ -15,43 +15,43 @@ let langs = [
 let lang = langs[Math.floor(Math.random() * langs.length)];
 
 // create 256 bit BIP39 mnemonic
-let mnemonic = BITBOX.Mnemonic.generate(256, BITBOX.Mnemonic.wordLists()[lang]);
+let mnemonic = bitbox.Mnemonic.generate(256, bitbox.Mnemonic.wordLists()[lang]);
 console.log("BIP44 $BCH Wallet");
 console.log(`256 bit ${lang} BIP39 Mnemonic: `, mnemonic);
 
 // root seed buffer
-let rootSeed = BITBOX.Mnemonic.toSeed(mnemonic);
+let rootSeed = bitbox.Mnemonic.toSeed(mnemonic);
 
 // master HDNode
-let masterHDNode = BITBOX.HDNode.fromSeed(rootSeed, "mainnet");
+let masterHDNode = bitbox.HDNode.fromSeed(rootSeed, "mainnet");
 
 // HDNode of BIP44 account
-let account = BITBOX.HDNode.derivePath(masterHDNode, "m/44'/145'/0'");
+let account = bitbox.HDNode.derivePath(masterHDNode, "m/44'/145'/0'");
 console.log(`BIP44 Account: "m/44'/145'/0'"`);
 
 for (let i = 0; i < 10; i++) {
   let childNode = masterHDNode.derivePath(`m/44'/145'/0'/0/${i}`);
   console.log(
-    `m/44'/145'/0'/0/${i}: ${BITBOX.HDNode.toCashAddress(childNode)}`
+    `m/44'/145'/0'/0/${i}: ${bitbox.HDNode.toCashAddress(childNode)}`
   );
 }
 
 // derive the first external change address HDNode which is going to spend utxo
-let change = BITBOX.HDNode.derivePath(account, "0/0");
+let change = bitbox.HDNode.derivePath(account, "0/0");
 
 // get the cash address
-let cashAddress = BITBOX.HDNode.toCashAddress(change);
+let cashAddress = bitbox.HDNode.toCashAddress(change);
 
 let hex;
 
-BITBOX.Address.utxo(cashAddress).then(
+bitbox.Address.utxo(cashAddress).then(
   result => {
     if (!result.utxos[0]) {
       return;
     }
 
     // instance of transaction builder
-    let transactionBuilder = new BITBOX.TransactionBuilder("bitcoincash");
+    let transactionBuilder = new bitbox.TransactionBuilder("mainnet");
     // original amount of satoshis in vin
     let originalAmount = result.utxos[0].satoshis;
 
@@ -65,7 +65,7 @@ BITBOX.Address.utxo(cashAddress).then(
     transactionBuilder.addInput(txid, vout);
 
     // get byte count to calculate fee. paying 1 sat/byte
-    let byteCount = BITBOX.BitcoinCash.getByteCount({ P2PKH: 1 }, { P2PKH: 1 });
+    let byteCount = bitbox.BitcoinCash.getByteCount({ P2PKH: 1 }, { P2PKH: 1 });
     // 192
     // amount to send to receiver. It's the original amount - 1 sat/byte for tx size
     let sendAmount = originalAmount - byteCount;
@@ -74,7 +74,7 @@ BITBOX.Address.utxo(cashAddress).then(
     transactionBuilder.addOutput(cashAddress, sendAmount);
 
     // keypair
-    let keyPair = BITBOX.HDNode.toKeyPair(change);
+    let keyPair = bitbox.HDNode.toKeyPair(change);
 
     // sign w/ HDNode
     let redeemScript;
@@ -93,7 +93,7 @@ BITBOX.Address.utxo(cashAddress).then(
     console.log(`Transaction raw hex: ${hex}`);
 
     // sendRawTransaction to running BCH node
-    BITBOX.RawTransactions.sendRawTransaction(hex).then(
+    bitbox.RawTransactions.sendRawTransaction(hex).then(
       result => {
         console.log(`Transaction ID: ${result}`);
       },
